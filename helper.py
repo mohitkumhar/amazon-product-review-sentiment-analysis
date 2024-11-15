@@ -13,8 +13,15 @@ from fuzzywuzzy import fuzz
 pd.options.mode.chained_assignment = None
 
 nltk.download('stopwords')
-nltk.download('punkt')
+
+try:
+    nltk.download('punkt')
+except Exception as e:
+    print(f"Error downloading punkt: {e}")
+    print("Please ensure NLTK data is correctly set up in your environment.")
+
 nltk.download('wordnet')
+
 
 
 stop_words = set(stopwords.words('english'))

@@ -15,7 +15,7 @@ def main():
                 st.success(f"This Gives Positive Sentiment")
             
             else:
-                st.success(f"This Gives Negative Sentiment")
+                st.error(f"This Gives Negative Sentiment")
 
 if __name__ == "__main__":
     main()
