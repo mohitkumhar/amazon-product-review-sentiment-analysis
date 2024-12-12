@@ -261,6 +261,11 @@ if st.button("Analyze Reviews"):
             st.table(df)
             
             st.write("**Overall Sentiment:**")
+            
+            if overall_sentiment == 1:
+                overall_sentiment = "Positive"
+            else:
+                overall_sentiment = "Negative"
             st.write(f"The overall sentiment is **{overall_sentiment}**.")
         else:
             st.write("No reviews found.")
