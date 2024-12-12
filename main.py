@@ -223,11 +223,12 @@ def get_keyword_score(words, topN=10):
 st.title("Amazon Review Sentiment Analyzer")
 
 # User inputs
-# url = st.text_input("Enter the Amazon product review URL:")
-url = 'https://www.amazon.in/Refurbished-Lenovo-ThinkPad-Bluetooth-Graphics/dp/B0DMTPY8PJ/'
+url = st.text_input("Enter the Amazon product review URL:")
+# url = 'https://www.amazon.in/Refurbished-Lenovo-ThinkPad-Bluetooth-Graphics/dp/B0DMTPY8PJ/'
 review_type = st.selectbox("Review Type:", ("all_reviews", "avp_only_reviews"))
 sort_by = st.selectbox("Sort By:", ("helpful", "recent"))
 num_reviews = st.number_input("Number of Reviews:", min_value=1, max_value=100, value=10)
+
 
 if st.button("Analyze Reviews"):
     if url:
@@ -242,23 +243,22 @@ if st.button("Analyze Reviews"):
             combined_reviews = " ".join(reviews)
             combined_reviews = re.sub(r'Read more', '', combined_reviews)
             reviews_keyword_score = get_keyword_score(combined_reviews)
-
             
             # Calculate overall sentiment
             overall_sentiment = calculate_overall_sentiment(reviews)
             
             # Display results
-            reviews_keyword_score = {"Excellent": 5, "Good": 4, "Average": 3, "Poor": 2}
-            
             st.write("**Common Review:**")
-
+            
             # Add a checkbox to let the user decide whether to display the table
-            if st.checkbox("Show Keyword Scores"):
+            # show_table = st.checkbox("Show Keyword Scores")
+            
+            # if show_table:
                 # Convert the dictionary to a DataFrame
-                df = pd.DataFrame(list(reviews_keyword_score.items()), columns=["Word", "Score"])
-                
-                # Display the DataFrame as a table
-                st.table(df)
+            df = pd.DataFrame(list(reviews_keyword_score.items()), columns=["Word", "Score"])
+            
+            # Display the DataFrame as a table
+            st.table(df)
             
             st.write("**Overall Sentiment:**")
             st.write(f"The overall sentiment is **{overall_sentiment}**.")
