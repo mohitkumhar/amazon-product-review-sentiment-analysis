@@ -14,6 +14,7 @@ import nltk
 import string
 
 nltk.download('stopwords')
+nltk.download('punkt_tab')
 
 
 sentiment_model = pickle.load(open('model.pkl', 'rb'))
