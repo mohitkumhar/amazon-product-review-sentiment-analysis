@@ -13,9 +13,9 @@ from nltk.corpus import stopwords
 import nltk
 import string
 
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('wordnet')
+# nltk.download('stopwords')
+# nltk.download('punkt')
+# nltk.download('wordnet')
 
 
 sentiment_model = pickle.load(open('model.pkl', 'rb'))
