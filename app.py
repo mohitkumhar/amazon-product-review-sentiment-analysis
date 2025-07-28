@@ -15,6 +15,7 @@ import string
 
 nltk.download('stopwords')
 nltk.download('punkt_tab')
+nltk.download('wordnet')
 
 
 sentiment_model = pickle.load(open('model.pkl', 'rb'))
@@ -132,7 +133,9 @@ def scrape_reviews(url, review_type, sort_by, num_reviews):
         soup = BeautifulSoup(response.text, "html.parser")
         
         # Find all review elements
-        review_elements = soup.find_all("span", {"data-hook": "review-body"})
+        # review_elements = soup.find_all("span", {"data-hook": "review-body"})
+        review_elements = soup.select('div.review-text-content > span')
+
         
         # Extract reviews
         for element in review_elements:
@@ -239,7 +242,11 @@ if st.button("Analyze Reviews"):
         
         if reviews:
             st.write(f"Fetched {len(reviews)} reviews.")
-            
+            with st.expander("📝 View Fetched Reviews"):
+                # Convert the list of reviews to a DataFrame for clean display
+                reviews_df = pd.DataFrame(reviews, columns=["Raw Review Text"])
+                st.dataframe(reviews_df, use_container_width=True)
+
             # Combine all reviews into one text
             combined_reviews = " ".join(reviews)
             combined_reviews = re.sub(r'Read more', '', combined_reviews)
